@@ -22,10 +22,10 @@ class GameEngine(object):
     #returns True if valid, error string otherwise
     def is_valid_move(self, move):
         if move > len(self.board) or move < 1:
-            print "please select a valid square"
+            print "please select a valid square."
             return False
         elif self.board[move - 1] is not None:
-            print "this square is already full, please select an empty one"
+            print "this square is already full, please select an empty one."
             return False
         else:
             return True

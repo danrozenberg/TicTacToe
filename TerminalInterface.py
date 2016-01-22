@@ -39,7 +39,7 @@ class TerminalInterface():
         player_first = ""
         print "---X goes first---"
         while player_first.upper() not in ["Y", "N"]:
-            player_first = raw_input("Do you want to go first? (y or n)")
+            player_first = raw_input("Do you want to go first? (y or n): ")
 
         if player_first.upper() == "Y":
             return "X"
