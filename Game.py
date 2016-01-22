@@ -4,62 +4,62 @@ import GameEngine
 import TerminalInterface
 import RandomStrategy
 
-class Game():
+class Game(object):
 
-	def __init__(self):
-		self.interface = TerminalInterface.TerminalInterface()
-		self.engine = GameEngine.GameEngine()
-		self.strategy = RandomStrategy.RandomStrategy()
-		self.newGame()
+    def __init__(self):
+        self.interface = TerminalInterface.TerminalInterface()
+        self.engine = GameEngine.GameEngine()
+        self.strategy = RandomStrategy.RandomStrategy()
+        self.new_game()
 
-	def newGame(self):
-		self.interface.sendWelcomeScreen()
-		self.engine.playerSymbol = self.interface.askForPlayerSymbol()
-		self.playTheGame()
+    def new_game(self):
+        self.interface.send_welcome_screen()
+        self.engine.players_symbol = self.interface.ask_for_player_symbol()
+        self.play_the_game()
 
-	#Game's steady-state
-	def playTheGame(self):
-		while not self.engine.isGameOver():
-			self.playersTurn()
-			self.computersTurn()
-		self.finishTheGame()
+    #Game's steady-state
+    def play_the_game(self):
+        while not self.engine.is_game_over():
+            self.players_turn()
+            self.computers_turn()
+        self.finish_the_game()
 
-	def playersTurn(self):
-		if self.engine.isPlayersTurn() and not self.engine.isGameOver():
-			self.interface.printMessage("\n=== Player's Turn ===")
+    def players_turn(self):
+        if self.engine.is_players_turn() and not self.engine.is_game_over():
+            self.interface.print_message("\n=== Player's Turn ===")
 
-			#wait for correct input before processing
-			playersMove = self.interface.getPlayersMove()
-			while not self.engine.isValidMove(playersMove):
-				playersMove = self.interface.getPlayersMove()
+        #wait for correct input before processing
+        players_move = self.interface.get_players_move()
+        while not self.engine.is_valid_move(players_move):
+            players_move = self.interface.get_players_move()
 
-			#now that we have a valid move, we process it.
-			self.engine.processMove(playersMove)
-			self.printTheBoard()
+        #now that we have a valid move, we process it.
+        self.engine.process_move(players_move)
+        self.print_the_board()
 
-	def computersTurn(self):
-		if not self.engine.isPlayersTurn() and not self.engine.isGameOver():
-			self.interface.printMessage("\n=== Computer's Turn ===")
-			currentBoard = self.engine.board
-			computersMove = self.strategy.getMove(currentBoard)
-			self.engine.processMove(computersMove)
-			self.printTheBoard()
+    def computers_turn(self):
+        if not self.engine.is_players_turn() and not self.engine.is_game_over():
+            self.interface.print_message("\n=== Computer's Turn ===")
+            current_board = self.engine.board
+            computers_move = self.strategy.get_move(current_board)
+            self.engine.process_move(computers_move)
+            self.print_the_board()
 
-	def printTheBoard(self):
-		currentBoard = self.engine.board
-		self.interface.printBoard(currentBoard)
+    def print_the_board(self):
+        current_board = self.engine.board
+        self.interface.print_board(current_board)
 
-	def finishTheGame(self):
-		if self.engine.isPlayerWinner():
-			self.interface.sendCongrats()
-		elif self.engine.isPlayerLoser():
-			self.interface.sendSorry()
-		else:
-			self.interface.sendDrawMessage()
+    def finish_the_game(self):
+        if self.engine.is_player_winner():
+            self.interface.send_congrats()
+        elif self.engine.is_player_loser():
+            self.interface.send_sorry()
+        else:
+            self.interface.send_draw_message()
 
-		#end of program
-		sys.exit()
+        #end of program
+        sys.exit()
 
-if __name__=='__main__':
-	game = Game()
-	game.newGame()
+if __name__ == '__main__':
+    GAME = Game()
+    GAME.new_game()
